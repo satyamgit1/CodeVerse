@@ -14,5 +14,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")], // Added plugins property with DaisyUI plugin
 }
