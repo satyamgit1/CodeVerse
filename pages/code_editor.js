@@ -83,13 +83,18 @@ export default function Home() {
 
           <div className="output">
             {/* <h3 className="ml-20 p-2 font-bold">Output</h3> */}
+            
+            
+            
             <iframe
-              className="output-iframe"
-              title="Output"
-              width="100%"
-              height="500px"
-              srcDoc={combinedCode}
-            />
+          
+          className="output-iframe bg-white"
+          title="Output"
+          width="100%"
+          height="500px"
+          srcDoc={combinedCode}
+        />
+            
           </div>
           <Footer />
         </div>
