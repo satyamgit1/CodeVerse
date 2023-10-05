@@ -82,7 +82,7 @@ export default function Home() {
           </div>
 
           <div className="output">
-            <h3>Output</h3>
+            {/* <h3 className="ml-20 p-2 font-bold">Output</h3> */}
             <iframe
               className="output-iframe"
               title="Output"
