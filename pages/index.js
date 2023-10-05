@@ -36,8 +36,8 @@ export default function Editor() {
                     CodeVerse
                   </span>
                   <span class="block font-bold xl:inline">
-                    <span class="absolute">Interactive Code Playground</span>
-                    <br />
+                    {/* <span class="absolute">Interactive Code Playground</span> */}
+                    {/* <br /> */}
                     Live Code Execution
                   </span>
                 </h1>
