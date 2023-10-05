@@ -27,11 +27,11 @@ export default function Home() {
                     <br />
                     
 
-      <div>
+      <div className="flex justify-evenly">
         <div>
-          <h3>HTML</h3>
+          <h3 >HTML</h3>
           <textarea
-            className="textarea textarea-info w-80 h-80"
+            className="textarea textarea-info  w-80 h-80"
             placeholder="html"
             value={html}
             onChange={(e) => setHtml(e.target.value)}
@@ -40,7 +40,7 @@ export default function Home() {
         <div>
           <h3>CSS</h3>
           <textarea
-            className="textarea textarea-info w-80 h-80"
+            className="textarea textarea-info  w-80 h-80"
             placeholder="Css"
             value={css}
             onChange={(e) => setCss(e.target.value)}
