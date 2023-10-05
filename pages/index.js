@@ -75,10 +75,7 @@ export default function Editor() {
                     </a>
                   </div>
                 </div>
-                <div class="mt-4">
-                  Need specific or new component ?
-                  <span class="underline cursor-pointer">Make a request</span>
-                </div>
+                
               </div>
             </div>
           </main>
