@@ -39,75 +39,55 @@ export default function Home() {
   </html>`;
 
   return (
-    <div>
-      <div className="relative h-screen bg-dark">
-        <div className="h-full mx-auto ">
-          <div className="">
-            <div className="relative z-40 bg-dark">
-              <div className="px-4 mx-auto max-w-7xl sm:px-6">
-                <div className="flex items-center justify-between py-6 border-gray-100 md:space-x-10">
-                  <div className="flex items-center justify-start gap-12">
-                    <div className="flex items-center" href="/">
-                      <img
-                        className="w-auto h-12 sm:h-12"
-                        src="/pic.png"
-                        alt="my_image_logo"
-                      />
-                      <Link href="/" className="ml-8 text-5xl font-bold text-indigo-600">Welcome to Satyam Verse</Link>
-                    </div>
-                    <nav className="hidden space-x-10 md:flex">
-                      <div className="relative"></div>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="min-h-screen bg-dark">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="flex items-center justify-between py-6 border-gray-100 md:space-x-10">
+          <div className="flex items-center gap-12">
+            <Link href="/" className="flex items-center">
+              <img className="w-auto h-12 sm:h-12" src="/pic.png" alt="my_image_logo" />
+              <span className="ml-8 text-2xl sm:text-5xl font-bold text-indigo-600">Welcome to Satyam Verse</span>
+            </Link>
           </div>
-
-          <br />
-          <br />
-
-          <div className="flex justify-evenly">
+        </header>
+        <main className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <h3>HTML</h3>
+              <h3 className="text-center">HTML</h3>
               <textarea
-                className="textarea textarea-info w-80 h-80"
+                className="textarea textarea-info w-full h-40 sm:h-80"
                 placeholder=""
                 value={html}
                 onChange={(e) => setHtml(e.target.value)}
               ></textarea>
             </div>
             <div>
-              <h3>CSS</h3>
+              <h3 className="text-center">CSS</h3>
               <textarea
-                className="textarea textarea-info w-80 h-80"
+                className="textarea textarea-info w-full h-40 sm:h-80"
                 placeholder=""
                 value={css}
                 onChange={(e) => setCss(e.target.value)}
               ></textarea>
             </div>
             <div>
-              <h3>JAVASCRIPT</h3>
+              <h3 className="text-center">JAVASCRIPT</h3>
               <textarea
-                className="textarea textarea-info w-80 h-80"
+                className="textarea textarea-info w-full h-40 sm:h-80"
                 placeholder=""
                 value={js}
                 onChange={(e) => setJs(e.target.value)}
               ></textarea>
             </div>
           </div>
-
           <div className="output">
             <iframe
-              className="output-iframe bg-white"
+              className="output-iframe w-full h-64 sm:h-96 bg-white"
               title="Output"
-              width="100%"
-              height="500px"
               srcDoc={combinedCode}
             />
           </div>
-          <Footer />
-        </div>
+        </main>
+        <Footer />
       </div>
     </div>
   );
