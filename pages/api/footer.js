@@ -12,7 +12,7 @@ export default function Footer(){
                         <img class="w-auto h-7" src="/pic.png" alt=""/>
                     </a>
 
-                    <p class="max-w-sm mt-2 text-gray-500 dark:text-gray-400">Join 31,000+ other and never miss out the fun and more.</p>
+                    <p class="max-w-sm mt-2 text-gray-500 dark:text-gray-400">Trusted by 500 students. Join us today!</p>
 
                     <div class="flex mt-6 -mx-2">
                         <a href="#"
@@ -65,16 +65,16 @@ export default function Footer(){
                     </div> */}
 
                     <div>
-                        <h3 class="text-gray-700 uppercase dark:text-white">Products</h3>
-                        <a href="#" class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">Mega cloud</a>
-                        <a href="#" class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">Aperion UI</a>
-                        <a href="#" class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">Meraki UI</a>
+                        <h3 class="text-black-700 uppercase dark:text-white">Products</h3>
+                        <a href="https://www.satyamsingh.site/" class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"> 👋🏻 Portfolio</a>
+                        <a href="https://www.societysathi.com/" class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">Societysathi</a>
+                        <a href="https://www.bhagavadgita.site/" class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">Bhagavadgita</a>
                     </div>
 
                     <div>
                         <h3 class="text-gray-700 uppercase dark:text-white">Contact</h3>
-                        <span class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">+91 9730447447</span>
-                        <span class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">satyamsingh2003a@gmail.com.com</span>
+                        <span class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">📞 +91 9730447447</span>
+                        <span class="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"> 📩satyamsingh2003a@gmail.com</span>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@ export default function Footer(){
         <hr class="h-px my-6 bg-gray-200 border-none dark:bg-gray-700"/>
 
         <div>
-            <p class="text-center text-gray-500 dark:text-gray-400">© CodeVerse 2023 - All rights reserved</p>
+            <p class="text-center text-gray-500 dark:text-gray-400">© CodeVerse 2024- All rights reserved</p>
         </div>
     </div>
 </footer>
