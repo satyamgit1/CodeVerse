@@ -33,7 +33,7 @@ export default function Editor() {
               <div class="z-20 flex flex-col items-center justify-start w-full h-full text-left md:z-30 md:w-1/2 md:items-start md:justify-center">
                 <h1 class="text-6xl font-extrabold tracking-tight text-gray-900 titleHome ">
                   <span class="flex w-full m-auto text-indigo-600">
-                   Welcome to Satyam Verse
+                    Welcome to Satyam Verse
                   </span>
                   <span class="block font-bold xl:inline">
                     {/* <span class="absolute">Interactive Code Playground</span> */}
@@ -47,6 +47,26 @@ export default function Editor() {
                 </h2>
                 <div class="w-full mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div class="rounded-md shadow">
+                  {/* <Link href="/code_editor">
+      <button className="animated-button flex items-center justify-center w-full px-4 px-8 py-2 py-3 font-medium text-black bg-indigo-600 rounded-md hover:bg-indigo-700">
+        <svg
+          viewBox="0 0 24 24"
+          className="arr-2"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+        </svg>
+        <span className="text-black">Get started</span>
+        <span className="circle"></span>
+        <svg
+          viewBox="0 0 24 24"
+          className="arr-1"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+        </svg>
+      </button>
+    </Link> */}
                     <Link
                       class="flex items-center justify-center w-full px-4 px-8 py-2 py-3 text-base font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                       href="/code_editor"
@@ -75,15 +95,11 @@ export default function Editor() {
                     </a>
                   </div>
                 </div>
-                
               </div>
             </div>
           </main>
         </div>
       </div>
-
-
-     
 
       <div class="container p-6 px-6 mx-auto bg-white dark:bg-gray-800">
         <div class="mb-16 text-center">
@@ -212,9 +228,7 @@ export default function Editor() {
         </div>
       </div>
 
-<Footer/>
-
-
+      <Footer />
     </div>
   );
 }
