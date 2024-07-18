@@ -33,7 +33,7 @@ export default function Editor() {
               <div class="z-20 flex flex-col items-center justify-start w-full h-full text-left md:z-30 md:w-1/2 md:items-start md:justify-center">
                 <h1 class="text-6xl font-extrabold tracking-tight text-gray-900 titleHome ">
                   <span class="flex w-full m-auto text-indigo-600">
-                    CodeVerse
+                   Welcome to Satyam Verse
                   </span>
                   <span class="block font-bold xl:inline">
                     {/* <span class="absolute">Interactive Code Playground</span> */}
@@ -212,12 +212,7 @@ export default function Editor() {
         </div>
       </div>
 
-
-
-
 <Footer/>
-
-
 
 
     </div>
