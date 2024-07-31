@@ -1,6 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import Footer from "./api/footer";
+import { FaUserDoctor } from "react-icons/fa6";
+import { GiMedicines } from "react-icons/gi";
+
+import { MdFamilyRestroom } from "react-icons/md";
+
+import { IoHomeOutline } from "react-icons/io5";
+import Features from "@/component/Features";
 
 export default function Editor() {
   return (
@@ -47,26 +54,6 @@ export default function Editor() {
                 </h2>
                 <div class="w-full mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div class="rounded-md shadow">
-                  {/* <Link href="/code_editor">
-      <button className="animated-button flex items-center justify-center w-full px-4 px-8 py-2 py-3 font-medium text-black bg-indigo-600 rounded-md hover:bg-indigo-700">
-        <svg
-          viewBox="0 0 24 24"
-          className="arr-2"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-        </svg>
-        <span className="text-black">Get started</span>
-        <span className="circle"></span>
-        <svg
-          viewBox="0 0 24 24"
-          className="arr-1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-        </svg>
-      </button>
-    </Link> */}
                     <Link
                       class="flex items-center justify-center w-full px-4 px-8 py-2 py-3 text-base font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                       href="/code_editor"
@@ -100,134 +87,7 @@ export default function Editor() {
           </main>
         </div>
       </div>
-
-      <div class="container p-6 px-6 mx-auto bg-white dark:bg-gray-800">
-        <div class="mb-16 text-center">
-          <h2 class="text-base font-semibold tracking-wide text-indigo-600 uppercase">
-            Features
-          </h2>
-          <p class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-            A better way to Code
-          </p>
-        </div>
-        <div class="flex flex-wrap my-12 dark:text-white">
-          <div class="w-full p-8 border-b md:w-1/2 md:border-r lg:w-1/3">
-            <div class="flex items-center mb-6">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="w-6 h-6 text-indigo-500"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"></path>
-              </svg>
-              <div class="ml-4 text-xl">Live Code Execution</div>
-            </div>
-            <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
-              Run HTML, CSS, and JavaScript code in real-time. See immediate
-              results and debug instantly.{" "}
-            </p>
-          </div>
-          <div class="w-full p-8 border-b md:w-1/2 lg:w-1/3 lg:border-r">
-            <div class="flex items-center mb-6">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="w-6 h-6 text-indigo-500"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"></path>
-              </svg>
-              <div class="ml-4 text-xl">Collaborative Coding</div>
-            </div>
-            <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
-              Work on projects with friends or colleagues in real-time.
-              Collaborative coding fosters teamwork and creativity.{" "}
-            </p>
-          </div>
-          <div class="w-full p-8 border-b md:w-1/2 md:border-r lg:w-1/3 lg:border-r-0">
-            <div class="flex items-center mb-6">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="w-6 h-6 text-indigo-500"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"></path>
-              </svg>
-              <div class="ml-4 text-xl">Interactive Learning</div>
-            </div>
-            <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
-              Use the platform as an open-source learning environment. Learn,
-              experiment, and improve your coding skills{" "}
-            </p>
-          </div>
-          <div class="w-full p-8 border-b md:w-1/2 lg:w-1/3 lg:border-r lg:border-b-0">
-            <div class="flex items-center mb-6">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="w-6 h-6 text-indigo-500"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"></path>
-              </svg>
-              <div class="ml-4 text-xl">Embeddable Pens</div>
-            </div>
-            <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
-              Embed your pens in blogs, portfolios, or websites. Showcase your
-              work seamlessly across the web.{" "}
-            </p>
-          </div>
-          <div class="w-full p-8 border-b md:w-1/2 md:border-r md:border-b-0 lg:w-1/3 lg:border-b-0">
-            <div class="flex items-center mb-6">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="w-6 h-6 text-indigo-500"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"></path>
-              </svg>
-              <div class="ml-4 text-xl">Secure Environment</div>
-            </div>
-            <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
-              Code with confidence in a secure environment. Your data and
-              projects are protected, ensuring a safe coding experience{" "}
-            </p>
-          </div>
-          <div class="w-full p-8 md:w-1/2 lg:w-1/3">
-            <div class="flex items-center mb-6">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="w-6 h-6 text-indigo-500"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z"></path>
-              </svg>
-              <div class="ml-4 text-xl">Mobile-Friendly Interface</div>
-            </div>
-            <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
-              Access the platform on-the-go. The mobile-friendly interface
-              allows you to code and collaborate from your smartphone or tablet.{" "}
-            </p>
-          </div>
-        </div>
-      </div>
-
+      <Features />
       <Footer />
     </div>
   );
