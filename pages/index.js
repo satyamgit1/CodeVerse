@@ -1,16 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import Footer from "./api/footer";
-import { FaUserDoctor } from "react-icons/fa6";
-import { GiMedicines } from "react-icons/gi";
-
-import { MdFamilyRestroom } from "react-icons/md";
-
-import { IoHomeOutline } from "react-icons/io5";
 import Features from "@/component/Features";
 
 export default function Editor() {
   return (
+    <div>
     <div class="relative h-screen  bg-white">
       <div class="h-full mx-auto max-w-7xl">
         <div class="relative z-10 h-full pb-8 bg-white sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32">
@@ -89,6 +84,7 @@ export default function Editor() {
       </div>
       <Features />
       <Footer />
+    </div>
     </div>
   );
 }
