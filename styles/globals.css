@@ -74,6 +74,8 @@ body {
 } */
 
 
+/* styles/globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -94,13 +96,7 @@ body {
   }
 
   body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--background-end-rgb))
-      )
-      rgb(var(--background-start-rgb));
+    @apply bg-gradient-to-b from-background-start to-background-end text-foreground;
   }
 
   .editor-container {
@@ -137,11 +133,12 @@ body {
 
   @media (max-width: 767px) {
     .code-editor {
-      height: 700px;
+     height: 700px;
     }
 
     .output-screen {
-      height: 700px;
+      @apply h-full;
     }
   }
 }
+
