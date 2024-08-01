@@ -4,7 +4,7 @@ import '@/styles/globals.css'
 import { Analytics } from "@vercel/analytics/react"
 import '@/styles/social.css';
 import '@/styles/Sidebar.css';
-import 'aos/dist/aos.css'; // Import AOS styles
+import 'aos/dist/aos.css'; // Ensure this is in _app.js
 import AOS from 'aos';
 import { useEffect } from 'react'; // Import useEffect from React
 

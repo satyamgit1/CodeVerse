@@ -1,15 +1,12 @@
-import React from 'react'
-import { FaUserDoctor } from "react-icons/fa6";
+import React from 'react';
+import { FaUserDoctor } from "react-icons/fa";
 import { GiMedicines } from "react-icons/gi";
-
 import { MdFamilyRestroom } from "react-icons/md";
 
-import { IoHomeOutline } from "react-icons/io5";
-
-export default function Features() {
+const Features = () => {
   return (
     <div>
-       <section id="services" className="py-12 bg-base-200 md:py-16 lg:py-20">
+      <section id="services" className="py-12 bg-base-200 md:py-16 lg:py-20">
         <div className="px-4 md:px-8">
           <div
             data-aos="fade"
@@ -35,9 +32,9 @@ export default function Features() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="w-8 h-8 mb-4 text-primary"
               >
                 <path d="M12 6v4"></path>
@@ -64,9 +61,9 @@ export default function Features() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="w-8 h-8 mb-4 text-primary"
               >
                 <path d="M9 12h.01"></path>
@@ -91,9 +88,9 @@ export default function Features() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="w-8 h-8 mb-4 text-primary"
               >
                 <circle cx="12" cy="12" r="10"></circle>
@@ -145,5 +142,7 @@ export default function Features() {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
+
+export default Features;
