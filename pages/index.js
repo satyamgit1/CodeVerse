@@ -1,10 +1,36 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "../components/Footer";
+import { db } from "../firebaseConfig"; // Import Firestore instance
+import { collection, addDoc, getDocs } from "firebase/firestore"; // Firestore functions
 
 export default function Editor() {
+  useEffect(() => {
+    // Firestore testing function
+    async function testFirestore() {
+      try {
+        // Adding a document to Firestore
+        const docRef = await addDoc(collection(db, "testCollection"), {
+          testField: "testValue",
+        });
+        console.log("Document written with ID: ", docRef.id);
+
+        // Reading documents from Firestore
+        const querySnapshot = await getDocs(collection(db, "testCollection"));
+        querySnapshot.forEach((doc) => {
+          console.log(`${doc.id} => ${doc.data()}`);
+        });
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    }
+
+    // Call the test function on component mount
+    testFirestore();
+  }, []);
+
   return (
-    <div class="relative h-screen  bg-white">
+    <div class="relative h-screen bg-white">
       <div class="h-full mx-auto max-w-7xl">
         <div class="relative z-10 h-full pb-8 bg-white sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32">
           <div class="relative z-40 bg-white">
@@ -31,13 +57,11 @@ export default function Editor() {
           <main class="h-full px-4 mx-auto mt-10 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div class="flex flex-col items-start justify-between w-full h-full md:flex-row md:justify-start md:h-1/2">
               <div class="z-20 flex flex-col items-center justify-start w-full h-full text-left md:z-30 md:w-1/2 md:items-start md:justify-center">
-                <h1 class="text-6xl font-extrabold tracking-tight text-gray-900 titleHome ">
+                <h1 class="text-6xl font-extrabold tracking-tight text-gray-900 titleHome">
                   <span class="flex w-full m-auto text-indigo-600">
                     Welcome to Satyam Verse
                   </span>
                   <span class="block font-bold xl:inline">
-                    {/* <span class="absolute">Interactive Code Playground</span> */}
-                    {/* <br /> */}
                     Live Code Execution
                   </span>
                 </h1>
@@ -47,26 +71,6 @@ export default function Editor() {
                 </h2>
                 <div class="w-full mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div class="rounded-md shadow">
-                  {/* <Link href="/code_editor">
-      <button className="animated-button flex items-center justify-center w-full px-4 px-8 py-2 py-3 font-medium text-black bg-indigo-600 rounded-md hover:bg-indigo-700">
-        <svg
-          viewBox="0 0 24 24"
-          className="arr-2"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-        </svg>
-        <span className="text-black">Get started</span>
-        <span className="circle"></span>
-        <svg
-          viewBox="0 0 24 24"
-          className="arr-1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-        </svg>
-      </button>
-    </Link> */}
                     <Link
                       class="flex items-center justify-center w-full px-4 px-8 py-2 py-3 text-base font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
                       href="/code_editor"
@@ -127,7 +131,7 @@ export default function Editor() {
             </div>
             <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
               Run HTML, CSS, and JavaScript code in real-time. See immediate
-              results and debug instantly.{" "}
+              results and debug instantly.
             </p>
           </div>
           <div class="w-full p-8 border-b md:w-1/2 lg:w-1/3 lg:border-r">
@@ -146,7 +150,7 @@ export default function Editor() {
             </div>
             <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
               Work on projects with friends or colleagues in real-time.
-              Collaborative coding fosters teamwork and creativity.{" "}
+              Collaborative coding fosters teamwork and creativity.
             </p>
           </div>
           <div class="w-full p-8 border-b md:w-1/2 md:border-r lg:w-1/3 lg:border-r-0">
@@ -165,7 +169,7 @@ export default function Editor() {
             </div>
             <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
               Use the platform as an open-source learning environment. Learn,
-              experiment, and improve your coding skills{" "}
+              experiment, and improve your coding skills
             </p>
           </div>
           <div class="w-full p-8 border-b md:w-1/2 lg:w-1/3 lg:border-r lg:border-b-0">
@@ -184,7 +188,7 @@ export default function Editor() {
             </div>
             <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
               Embed your pens in blogs, portfolios, or websites. Showcase your
-              work seamlessly across the web.{" "}
+              work seamlessly across the web.
             </p>
           </div>
           <div class="w-full p-8 border-b md:w-1/2 md:border-r md:border-b-0 lg:w-1/3 lg:border-b-0">
@@ -203,7 +207,7 @@ export default function Editor() {
             </div>
             <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
               Code with confidence in a secure environment. Your data and
-              projects are protected, ensuring a safe coding experience{" "}
+              projects are protected, ensuring a safe coding experience
             </p>
           </div>
           <div class="w-full p-8 md:w-1/2 lg:w-1/3">
@@ -222,7 +226,7 @@ export default function Editor() {
             </div>
             <p class="leading-loose text-gray-500 dark:text-gray-200 text-md">
               Access the platform on-the-go. The mobile-friendly interface
-              allows you to code and collaborate from your smartphone or tablet.{" "}
+              allows you to code and collaborate from your smartphone or tablet.
             </p>
           </div>
         </div>

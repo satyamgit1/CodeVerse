@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { db } from "../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import _ from 'lodash';
+import _ from "lodash";
 
 const Editor = () => {
   const router = useRouter();
@@ -17,17 +17,21 @@ const Editor = () => {
   useEffect(() => {
     if (id) {
       const fetchProject = async () => {
-        const docRef = doc(db, "projects", id);
-        const docSnap = await getDoc(docRef);
+        try {
+          const docRef = doc(db, "projects", id);
+          const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setHtml(data.html || "");
-          setCss(data.css || "");
-          setJs(data.js || "");
-          console.log("Project loaded successfully:", data);
-        } else {
-          console.error("No such document!");
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setHtml(data.html || "");
+            setCss(data.css || "");
+            setJs(data.js || "");
+            console.log("Project loaded successfully:", data);
+          } else {
+            console.error("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching project:", error);
         }
       };
 

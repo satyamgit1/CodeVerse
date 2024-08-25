@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 const Editor = () => {
   const router = useRouter();
@@ -17,17 +17,21 @@ const Editor = () => {
   useEffect(() => {
     if (id) {
       const fetchProject = async () => {
-        const docRef = doc(db, "projects", id);
-        const docSnap = await getDoc(docRef);
+        try {
+          const docRef = doc(db, "projects", id);
+          const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setHtml(data.html || "");
-          setCss(data.css || "");
-          setJs(data.js || "");
-          console.log("Project loaded successfully:", data);
-        } else {
-          console.error("No such document!");
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setHtml(data.html || "");
+            setCss(data.css || "");
+            setJs(data.js || "");
+            console.log("Project loaded successfully:", data);
+          } else {
+            console.error("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching project:", error);
         }
       };
 
@@ -35,23 +39,34 @@ const Editor = () => {
     }
   }, [id]);
 
-  // Throttled update function to avoid frequent Firestore updates
-  const throttledUpdate = _.throttle(async () => {
+  // Debounced function to update Firestore
+  const saveData = debounce(async (updatedData) => {
     if (id) {
       try {
         const docRef = doc(db, "projects", id);
-        await updateDoc(docRef, { html, css, js });
-        console.log("Document updated successfully:", { html, css, js });
+        await updateDoc(docRef, updatedData);
+        console.log("Document updated successfully:", updatedData);
       } catch (error) {
         console.error("Error updating document:", error);
       }
     }
-  }, 1000); // Adjust the delay as needed
+  }, 1000); // Adjust the debounce delay as needed
 
-  // Use useEffect to call throttledUpdate whenever HTML, CSS, or JS changes
-  useEffect(() => {
-    throttledUpdate();
-  }, [html, css, js]);
+  // Handlers for updating state and saving to Firestore
+  const handleHtmlChange = (value) => {
+    setHtml(value);
+    saveData({ html: value });
+  };
+
+  const handleCssChange = (value) => {
+    setCss(value);
+    saveData({ css: value });
+  };
+
+  const handleJsChange = (value) => {
+    setJs(value);
+    saveData({ js: value });
+  };
 
   const combinedCode = `
     <html>
@@ -77,19 +92,19 @@ const Editor = () => {
           className={`code-editor ${activeEditor === "html" ? "" : "hidden"}`}
           placeholder="Write HTML here..."
           value={html}
-          onChange={(e) => setHtml(e.target.value)}
+          onChange={(e) => handleHtmlChange(e.target.value)}
         ></textarea>
         <textarea
           className={`code-editor ${activeEditor === "css" ? "" : "hidden"}`}
           placeholder="Write CSS here..."
           value={css}
-          onChange={(e) => setCss(e.target.value)}
+          onChange={(e) => handleCssChange(e.target.value)}
         ></textarea>
         <textarea
           className={`code-editor ${activeEditor === "js" ? "" : "hidden"}`}
           placeholder="Write JavaScript here..."
           value={js}
-          onChange={(e) => setJs(e.target.value)}
+          onChange={(e) => handleJsChange(e.target.value)}
         ></textarea>
         <iframe className="output-screen" title="Output" srcDoc={combinedCode} />
       </div>
