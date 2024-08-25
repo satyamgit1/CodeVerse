@@ -73,9 +73,9 @@ export default function Editor() {
                   <div class="rounded-md shadow">
                     <Link
                       class="flex items-center justify-center w-full px-4 px-8 py-2 py-3 text-base font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
-                      href="/code_editor"
+                      href="/login"
                     >
-                      Get started
+                     Login
                     </Link>
                   </div>
                   <div class="mt-3 sm:mt-0 sm:ml-3">
