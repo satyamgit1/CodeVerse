@@ -8,6 +8,8 @@ const ProfileDropdown = () => {
   const [user] = useAuthState(auth);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const router = useRouter();
+  const storageRef = ref(storage, `profilePictures/${user.uid}`);
+
 
   const handleLogout = async () => {
     try {
@@ -34,7 +36,7 @@ const ProfileDropdown = () => {
         className="flex items-center focus:outline-none hover:opacity-80 transition-opacity duration-150"
       >
         <img
-          src={user.photoURL || "/pic.png"}
+          src={user.photoURL || "/default-profile.png"}
           alt="Profile"
           className="w-10 h-10 rounded-full border-2 border-gray-300 hover:border-indigo-500 transition-all duration-200"
         />
@@ -45,7 +47,7 @@ const ProfileDropdown = () => {
           <div className="px-4 py-3 text-gray-800">
             <div className="flex items-center space-x-3">
               <img
-                src={user.photoURL || "/pic.png"}
+                src={user.photoURL || "/default-profile.png"}
                 alt="Profile"
                 className="w-12 h-12 rounded-full border-2 border-indigo-500"
               />

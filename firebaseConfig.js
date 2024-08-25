@@ -1,8 +1,9 @@
-// firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"; // Import getStorage
 
+// Your Firebase configuration object
 const firebaseConfig = {
     apiKey: "AIzaSyB3cD94lYK3OlwCXNlvRmCAUcQBad-kMvI",
     authDomain: "codeeditor-7b515.firebaseapp.com",
@@ -11,10 +12,14 @@ const firebaseConfig = {
     messagingSenderId: "687839287286",
     appId: "1:687839287286:web:58b817dc47b1149c6ad9d7",
     measurementId: "G-C8P14Z5DK8"
-  };
+};
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase services
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app); // Initialize storage
 
-export { auth, db };
+export { auth, db, storage };
