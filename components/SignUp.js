@@ -164,7 +164,6 @@
 
 // export default SignUp;
 
-
 import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -252,8 +251,8 @@ const SignUp = () => {
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Already have an account?{" "}
-            <Link href="/login">
-              <a className="text-indigo-600 hover:text-indigo-500">Login</a>
+            <Link href="/login" className="text-indigo-600 hover:text-indigo-500">
+              Login
             </Link>
           </p>
         </div>
