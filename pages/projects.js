@@ -458,7 +458,7 @@ const ProjectList = () => {
       <div className="max-w-4xl mx-auto p-6">
         <header className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Your Projects</h1>
-          <ProfileDropdown />
+          
         </header>
         <div className="flex justify-end mb-4">
           <button
@@ -477,7 +477,7 @@ const ProjectList = () => {
               <div>
                 <Link href={`/editor/${project.id}`}>
                   <span className="text-xl font-semibold text-indigo-600 hover:text-indigo-800">
-                    {`Project ${project.name || project.id}`}
+                    {`Project: ${project.name || project.id}`}
                   </span>
                 </Link>
                 <p className="text-gray-500 mt-2">

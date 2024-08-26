@@ -656,7 +656,6 @@
 // };
 
 // export default ProfileDropdown;
-
 import React, { useState, useEffect } from "react";
 import { auth, storage } from "../firebaseConfig";
 import { signOut, updateProfile, onAuthStateChanged } from "firebase/auth";
@@ -681,7 +680,7 @@ const ProfileDropdown = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push("/login"); // Redirect to the login page after logout
+      router.push("/"); // Redirect to the homepage after logout
     } catch (error) {
       console.error("Error logging out:", error);
       alert("Failed to log out. Please try again.");
