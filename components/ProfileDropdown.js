@@ -544,19 +544,18 @@
 // export default ProfileDropdown;
 
 
-// ProfileDropdown.js
-
 // src/components/ProfileDropdown.js
 import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, storage } from "../firebaseConfig";
-import { signOut } from "firebase/auth";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { signOut, updateProfile } from "firebase/auth";
 import { useRouter } from "next/router";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const ProfileDropdown = () => {
-  const [user] = useAuthState(auth);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [user] = useAuthState(auth); // Authenticated user state
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -569,26 +568,36 @@ const ProfileDropdown = () => {
     }
   };
 
-  const handleFileUpload = async (file) => {
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleFileUpload = async (e) => {
     if (!user) {
       console.error("User is not authenticated.");
+      alert("Please log in to upload a profile picture.");
       return;
     }
 
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
     const storageRef = ref(storage, `profilePictures/${user.uid}`);
 
     try {
       await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(storageRef);
-      console.log("File available at", downloadURL);
-      // Update the user profile or database with the new URL
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-  };
+      const photoURL = await getDownloadURL(storageRef);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+      await updateProfile(user, { photoURL });
+
+      alert("Profile picture updated successfully!");
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+      alert("Failed to upload profile picture. Please try again.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   if (!user) {
@@ -622,17 +631,18 @@ const ProfileDropdown = () => {
                 <p className="text-xs text-gray-500">{user.email}</p>
               </div>
             </div>
+            <div className="mt-3">
+              <label className="block text-sm text-gray-600">Upload Profile Picture</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100"
+              />
+              {uploading && <p className="text-sm text-gray-500 mt-2">Uploading...</p>}
+            </div>
           </div>
           <div className="border-t my-2"></div>
-          <input
-            type="file"
-            onChange={(e) => {
-              if (e.target.files[0]) {
-                handleFileUpload(e.target.files[0]);
-              }
-            }}
-            className="w-full text-left px-4 py-2 text-sm text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 transition-colors duration-150"
-          />
           <button
             onClick={handleLogout}
             className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors duration-150"
