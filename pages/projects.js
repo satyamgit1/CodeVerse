@@ -255,6 +255,7 @@ import Link from "next/link";
 import ProfileDropdown from "../components/ProfileDropdown";
 import Modal from "../components/Modal";
 import Toast from "../components/Toast"; // Import the Toast component
+import Footer from "../components/Footer";
 
 const ProjectList = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -360,6 +361,7 @@ const ProjectList = () => {
           onClose={() => setToastMessage(null)}
         />
       )}
+      <Footer />
     </div>
   );
 };

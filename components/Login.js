@@ -3,6 +3,7 @@ import { auth } from "../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/router";
 import SignUp from "./SignUp";
+import Footer from "./Footer";
 import Link from "next/link";
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -67,6 +68,7 @@ const Login = () => {
   </p>
         </div>
       </div>
+
     </div>
   );
 };
