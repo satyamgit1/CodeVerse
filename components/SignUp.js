@@ -169,15 +169,18 @@ import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/router";
+import Link from "next/link"; // Use Link from next/link for client-side routing
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");  // State for the user's name
+  const [name, setName] = useState(""); // State for the user's name
+  const [error, setError] = useState(""); // State for handling errors
   const router = useRouter();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setError(""); // Reset error state
     try {
       // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -191,7 +194,7 @@ const SignUp = () => {
       router.push("/login");
     } catch (error) {
       console.error("Error signing up:", error);
-      alert("Error signing up. Please try again.");
+      setError("Error signing up. Please try again.");
     }
   };
 
@@ -199,6 +202,7 @@ const SignUp = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Create an Account</h2>
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleSignUp} className="space-y-6">
           <div className="flex flex-col">
             <label htmlFor="name" className="text-sm font-semibold text-gray-600 mb-2">Name</label>
@@ -248,9 +252,9 @@ const SignUp = () => {
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Already have an account?{" "}
-            <a href="/login" className="text-indigo-600 hover:text-indigo-500">
-              Login
-            </a>
+            <Link href="/login">
+              <a className="text-indigo-600 hover:text-indigo-500">Login</a>
+            </Link>
           </p>
         </div>
       </div>
