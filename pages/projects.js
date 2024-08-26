@@ -372,7 +372,7 @@
 
 
 
-// src/components/ProjectList.js
+// src/pages/projects.js
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
@@ -383,6 +383,7 @@ import ProfileDropdown from "../components/ProfileDropdown";
 import Modal from "../components/Modal";
 import Toast from "../components/Toast"; // Import the Toast component
 import { FaEdit, FaTrash } from "react-icons/fa"; // Import the edit and delete icons
+import Navbar from "../components/Navbar";
 
 const ProjectList = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -393,21 +394,25 @@ const ProjectList = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
-      const fetchProjects = async () => {
-        const projectsRef = collection(db, "projects");
-        const q = query(projectsRef, where("uid", "==", user.uid));
-        const querySnapshot = await getDocs(q);
-        const userProjects = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setProjects(userProjects);
-      };
+    if (!loading) {
+      if (!user) {
+        // If user is not logged in, redirect to the login page
+        router.push("/login");
+      } else {
+        // Fetch projects if the user is logged in
+        const fetchProjects = async () => {
+          const projectsRef = collection(db, "projects");
+          const q = query(projectsRef, where("uid", "==", user.uid));
+          const querySnapshot = await getDocs(q);
+          const userProjects = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setProjects(userProjects);
+        };
 
-      fetchProjects();
-    } else if (!loading && !user) {
-      router.push("/login");
+        fetchProjects();
+      }
     }
   }, [user, loading, router]);
 
@@ -439,70 +444,82 @@ const ProjectList = () => {
     router.push(`/editor/${projectId}`); // Redirect to the editor page for editing
   };
 
+  if (loading) {
+    return <div className="text-center mt-10 text-lg font-semibold">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center mt-10 text-red-500">Error: {error.message}</div>;
+  }
+
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <header className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Your Projects</h1>
-        <ProfileDropdown />
-      </header>
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={() => router.push("/CreateProject")}
-          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"
-        >
-          Create New Project
-        </button>
-      </div>
-      <ul className="grid gap-4 grid-cols-1"> {/* Ensure a single column grid */}
-        {projects.map((project) => (
-          <li
-            key={project.id}
-            className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow flex justify-between items-center"
+    <div>
+      <Navbar />
+      <div className="max-w-4xl mx-auto p-6">
+        <header className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">Your Projects</h1>
+          <ProfileDropdown />
+        </header>
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={() => router.push("/CreateProject")}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"
           >
-            <div>
-              <Link href={`/editor/${project.id}`} className="text-xl font-semibold text-indigo-600 hover:text-indigo-800">
-                {`Project ${project.name || project.id}`}
-              </Link>
-              <p className="text-gray-500 mt-2">
-                Created at: {new Date(project.createdAt?.seconds * 1000).toLocaleDateString()}
-              </p>
-            </div>
-            <div className="flex space-x-4">
-              <button
-                onClick={() => handleEdit(project.id)}
-                className="text-blue-600 hover:text-blue-800"
-              >
-                <FaEdit /> {/* Edit icon */}
-              </button>
-              <button
-                onClick={() => openModal(project.id)}
-                className="text-red-600 hover:text-red-800"
-              >
-                <FaTrash /> {/* Delete icon */}
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+            Create New Project
+          </button>
+        </div>
+        <ul className="grid gap-4 grid-cols-1">
+          {projects.map((project) => (
+            <li
+              key={project.id}
+              className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow flex justify-between items-center"
+            >
+              <div>
+                <Link href={`/editor/${project.id}`}>
+                  <span className="text-xl font-semibold text-indigo-600 hover:text-indigo-800">
+                    {`Project ${project.name || project.id}`}
+                  </span>
+                </Link>
+                <p className="text-gray-500 mt-2">
+                  Created at: {new Date(project.createdAt?.seconds * 1000).toLocaleDateString()}
+                </p>
+              </div>
+              <div className="flex space-x-4">
+                <button
+                  onClick={() => handleEdit(project.id)}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  <FaEdit /> {/* Edit icon */}
+                </button>
+                <button
+                  onClick={() => openModal(project.id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  <FaTrash /> {/* Delete icon */}
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-      <Modal
-        show={showModal}
-        onClose={closeModal}
-        onConfirm={handleDelete}
-        title="Delete Project"
-        message="Are you sure you want to delete this project? This action cannot be undone."
-      />
-
-      {toastMessage && (
-        <Toast
-          message={toastMessage.message}
-          type={toastMessage.type}
-          onClose={() => setToastMessage(null)}
+        <Modal
+          show={showModal}
+          onClose={closeModal}
+          onConfirm={handleDelete}
+          title="Delete Project"
+          message="Are you sure you want to delete this project? This action cannot be undone."
         />
-      )}
+
+        {toastMessage && (
+          <Toast
+            message={toastMessage.message}
+            type={toastMessage.type}
+            onClose={() => setToastMessage(null)}
+          />
+        )}
+      </div>
     </div>
   );
 };
 
 export default ProjectList;
-
