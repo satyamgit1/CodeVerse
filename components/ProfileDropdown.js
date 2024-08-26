@@ -666,6 +666,7 @@ const ProfileDropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [user, setUser] = useState(null);
+  const [showToast, setShowToast] = useState(false); // State to control toast visibility
   const router = useRouter();
 
   useEffect(() => {
@@ -693,9 +694,9 @@ const ProfileDropdown = () => {
 
   const handleFileUpload = async (e) => {
     if (!user) {
-      console.error("User is not authenticated.");
-      alert("Please log in to upload a profile picture.");
-      return;
+        console.error("User is not authenticated.");
+        alert("Please log in to upload a profile picture.");
+        return;
     }
 
     const file = e.target.files[0];
@@ -705,26 +706,33 @@ const ProfileDropdown = () => {
     const storageRef = ref(storage, `profilePictures/${user.uid}`); // Define the storage reference
 
     try {
-      // Upload the file to Firebase Storage
-      await uploadBytes(storageRef, file);
+        // Upload the file to Firebase Storage
+        await uploadBytes(storageRef, file);
 
-      // Get the download URL for the uploaded file
-      const photoURL = await getDownloadURL(storageRef);
+        // Get the download URL for the uploaded file
+        const photoURL = await getDownloadURL(storageRef);
 
-      // Update the user profile with the new photo URL
-      await updateProfile(user, { photoURL });
+        // Update the user profile with the new photo URL
+        await updateProfile(auth.currentUser, { photoURL });
 
-      // Update the user state to trigger a re-render
-      setUser({ ...user, photoURL });
+        // Refresh the user object to ensure it stays valid
+        const refreshedUser = await auth.currentUser.reload();
+        setUser(auth.currentUser); // Re-set the user object to trigger a re-render
 
-      alert("Profile picture updated successfully!");
+        // Show the toast notification
+        setShowToast(true);
+
+        // Hide the toast after 3 seconds
+        setTimeout(() => setShowToast(false), 3000);
+
     } catch (error) {
-      console.error("Error uploading profile picture:", error);
-      alert("Failed to upload profile picture. Please try again.");
+        console.error("Error uploading profile picture:", error);
+        alert("Failed to upload profile picture. Please try again.");
     } finally {
-      setUploading(false);
+        setUploading(false);
     }
-  };
+};
+
 
   if (!user) {
     return null; // Don't show the profile icon if the user is not logged in
@@ -732,6 +740,13 @@ const ProfileDropdown = () => {
 
   return (
     <div className="relative">
+      {showToast && (
+        <div className="toast toast-center toast-middle">
+          <div className="alert alert-success">
+            <span>Profile picture updated successfully!</span>
+          </div>
+        </div>
+      )}
       <button
         onClick={toggleDropdown}
         className="flex items-center focus:outline-none hover:opacity-80 transition-opacity duration-150"
