@@ -168,32 +168,68 @@ import React, { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/router";
-import Link from "next/link"; // Use Link from next/link for client-side routing
+import Link from "next/link";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState(""); // State for the user's name
-  const [error, setError] = useState(""); // State for handling errors
+  const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+      return `Password must be at least ${minLength} characters long.`;
+    }
+    if (!hasUppercase) {
+      return "Password must contain at least one uppercase letter.";
+    }
+    if (!hasLowercase) {
+      return "Password must contain at least one lowercase letter.";
+    }
+    if (!hasDigit) {
+      return "Password must contain at least one digit.";
+    }
+    if (!hasSpecialChar) {
+      return "Password must contain at least one special character.";
+    }
+    return null;
+  };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error state
+    setError("");
+
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      setError(passwordError);
+      return;
+    }
+
     try {
-      // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      
-      // Update the user's profile with the provided name
       await updateProfile(userCredential.user, { displayName: name });
 
       alert("User created successfully!");
-      
-      // Redirect to the login page after successful sign up
       router.push("/login");
     } catch (error) {
       console.error("Error signing up:", error);
-      setError("Error signing up. Please try again.");
+
+      if (error.code === "auth/email-already-in-use") {
+        setError("This email is already registered. Please use another email or login.");
+      } else if (error.code === "auth/weak-password") {
+        setError("The password is too weak. Please choose a stronger password.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("The email address is invalid. Please enter a valid email.");
+      } else {
+        setError("Error signing up. Please try again.");
+      }
     }
   };
 
