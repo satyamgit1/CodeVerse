@@ -254,7 +254,7 @@ import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/fire
 import Link from "next/link";
 import ProfileDropdown from "../components/ProfileDropdown";
 import Modal from "../components/Modal";
-import Toast from "../components/Toast"; // Import the Toast component
+import Toast from "../components/Toast";
 import Footer from "../components/Footer";
 
 const ProjectList = () => {
@@ -262,7 +262,7 @@ const ProjectList = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null); // For toast notifications
+  const [toastMessage, setToastMessage] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -330,7 +330,7 @@ const ProjectList = () => {
           >
             <div>
               <Link href={`/editor/${project.id}`} className="text-xl font-semibold text-indigo-600 hover:text-indigo-800">
-                {`Project ${project.id}`}
+                {project.name || `Project ${project.id}`}
               </Link>
               <p className="text-gray-500 mt-2">
                 Created at: {new Date(project.createdAt?.seconds * 1000).toLocaleDateString()}
@@ -367,3 +367,4 @@ const ProjectList = () => {
 };
 
 export default ProjectList;
+
