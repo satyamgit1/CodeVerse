@@ -1,7 +1,8 @@
+// Import necessary Firebase modules
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage"; // Add this import
+import { getStorage } from "firebase/storage";
 
 // Your Firebase configuration object
 const firebaseConfig = {
@@ -14,11 +15,16 @@ const firebaseConfig = {
     measurementId: "G-C8P14Z5DK8"
 };
 
+// Initialize Firebase app
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase services
 const auth = getAuth(app);
 const db = getFirestore(app);
-const storage = getStorage(app); // Initialize Firebase Storage
+const storage = getStorage(app);
+
+// Initialize Google Auth Provider
 const provider = new GoogleAuthProvider();
 
-
-export { auth, db, storage };
+// Export Firebase services and Google Auth Provider
+export { auth, db, storage, provider };
