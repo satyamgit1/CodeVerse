@@ -1,4 +1,5 @@
 #!/bin/bash
+# npm run git:auto-push -- "Your commit message" for pushing the code
 
 # Check if a commit message was provided as an argument
 if [ -z "$1" ]; then
