@@ -152,8 +152,8 @@
 // export default Login;
 
 import React, { useState } from "react";
-import { auth } from "../firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, provider } from "../firebaseConfig";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -170,6 +170,16 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       alert("Error logging in");
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      router.push("/projects");
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      alert("Sign-in failed. Please try again.");
     }
   };
 
@@ -211,6 +221,15 @@ const Login = () => {
             </button>
           </div>
         </form>
+        <div className="mt-6 text-center">
+          <p className="text-gray-600">Or</p>
+          <button
+            onClick={handleGoogleSignIn}
+            className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500 transition duration-200 mt-4"
+          >
+            Sign in with Google
+          </button>
+        </div>
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             Don't have an account?{" "}
