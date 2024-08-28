@@ -184,7 +184,11 @@ const Login = () => {
       router.push("/projects");
     } catch (error) {
       console.error("Google Sign-In Error:", error);
-      alert("Google sign-in failed. Please try again.");
+      if (error.code === 'auth/unauthorized-domain') {
+        alert("The current domain is not authorized for Google Sign-In. Please check your Firebase settings.");
+      } else {
+        alert("Google sign-in failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
