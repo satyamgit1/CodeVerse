@@ -38,4 +38,4 @@ next-env.d.ts
 firebaseConfig.js
 
 
-.env.local
+.env
