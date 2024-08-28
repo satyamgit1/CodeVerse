@@ -160,39 +160,26 @@ import Link from "next/link";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/projects");
     } catch (error) {
-      console.error("Login Error:", error);
-      let errorMessage = "Error logging in. Please try again.";
-      if (error.code === "auth/wrong-password") {
-        errorMessage = "Incorrect password. Please try again.";
-      } else if (error.code === "auth/user-not-found") {
-        errorMessage = "No account found with this email.";
-      }
-      alert(errorMessage);
-    } finally {
-      setLoading(false);
+      console.error(error);
+      alert("Error logging in");
     }
   };
 
   const handleGoogleSignIn = async () => {
-    setLoading(true);
     try {
       await signInWithPopup(auth, provider);
       router.push("/projects");
     } catch (error) {
       console.error("Google Sign-In Error:", error);
-      alert("Google sign-in failed. Please try again.");
-    } finally {
-      setLoading(false);
+      alert("Sign-in failed. Please try again.");
     }
   };
 
@@ -229,9 +216,8 @@ const Login = () => {
             <button
               type="submit"
               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-500 transition duration-200"
-              disabled={loading}
             >
-              {loading ? "Loading..." : "Login"}
+              Login
             </button>
           </div>
         </form>
@@ -240,9 +226,8 @@ const Login = () => {
           <button
             onClick={handleGoogleSignIn}
             className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500 transition duration-200 mt-4"
-            disabled={loading}
           >
-            {loading ? "Loading..." : "Sign in with Google"}
+            Sign in with Google
           </button>
         </div>
         <div className="mt-6 text-center">
