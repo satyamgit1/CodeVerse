@@ -5,10 +5,10 @@ import { Analytics } from "@vercel/analytics/react";
 import '../styles/social.css';
 import '../styles/Sidebar.css';
 
-
 import 'aos/dist/aos.css'; // Ensure this is in _app.js
 import AOS from 'aos';
 import { useEffect } from 'react'; // Import useEffect from React
+import { ThemeProvider } from 'next-themes'; // Import ThemeProvider from next-themes
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -18,9 +18,9 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return (
-    <>
+    <ThemeProvider attribute="class" defaultTheme="light">
       <Component {...pageProps} />
       <Analytics />
-    </>
-  )
+    </ThemeProvider>
+  );
 }

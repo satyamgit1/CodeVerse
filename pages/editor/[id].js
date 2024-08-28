@@ -242,11 +242,12 @@ import { useRouter } from "next/router";
 import { db } from "../../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import debounce from 'lodash/debounce';
+import { useTheme } from 'next-themes';
 
 const Editor = () => {
   const router = useRouter();
   const { id } = router.query;
-
+  const { theme } = useTheme(); // Use the current theme
   const [projectName, setProjectName] = useState(""); 
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
@@ -311,7 +312,7 @@ const Editor = () => {
       <head>
         <style>${css}</style>
       </head>
-      <body>
+      <body class="${theme}">
         ${html}
         <script>${js}<\/script>
       </body>
@@ -319,34 +320,54 @@ const Editor = () => {
   `;
 
   return (
-    <div className="editor-container">
+    <div className={`editor-container ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'} p-4 rounded-lg`}>
       <h1 className="text-3xl font-bold mb-4">{projectName}</h1>
 
-      <div className="editor-tabs">
-        <button onClick={() => setActiveEditor("html")}>HTML</button>
-        <button onClick={() => setActiveEditor("css")}>CSS</button>
-        <button onClick={() => setActiveEditor("js")}>JavaScript</button>
+      <div className="editor-tabs flex space-x-4 mb-4">
+        <button 
+          onClick={() => setActiveEditor("html")} 
+          className={`px-4 py-2 rounded ${activeEditor === 'html' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-black'} transition duration-200`}
+        >
+          HTML
+        </button>
+        <button 
+          onClick={() => setActiveEditor("css")} 
+          className={`px-4 py-2 rounded ${activeEditor === 'css' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-black'} transition duration-200`}
+        >
+          CSS
+        </button>
+        <button 
+          onClick={() => setActiveEditor("js")} 
+          className={`px-4 py-2 rounded ${activeEditor === 'js' ? 'bg-indigo-600 text-white' : 'bg-gray-300 text-black'} transition duration-200`}
+        >
+          JavaScript
+        </button>
       </div>
-      <div className="flex flex-col md:flex-row">
+
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
         <textarea
-          className={`code-editor ${activeEditor === "html" ? "" : "hidden"}`}
+          className={`code-editor ${activeEditor === "html" ? '' : 'hidden'} p-4 border rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}
           placeholder="Write HTML here..."
           value={html}
           onChange={(e) => handleHtmlChange(e.target.value)}
         ></textarea>
         <textarea
-          className={`code-editor ${activeEditor === "css" ? "" : "hidden"}`}
+          className={`code-editor ${activeEditor === "css" ? '' : 'hidden'} p-4 border rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}
           placeholder="Write CSS here..."
           value={css}
           onChange={(e) => handleCssChange(e.target.value)}
         ></textarea>
         <textarea
-          className={`code-editor ${activeEditor === "js" ? "" : "hidden"}`}
+          className={`code-editor ${activeEditor === "js" ? '' : 'hidden'} p-4 border rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}
           placeholder="Write JavaScript here..."
           value={js}
           onChange={(e) => handleJsChange(e.target.value)}
         ></textarea>
-        <iframe className="output-screen" title="Output" srcDoc={combinedCode} />
+        <iframe 
+          className={`output-screen border rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`} 
+          title="Output" 
+          srcDoc={combinedCode} 
+        />
       </div>
     </div>
   );
