@@ -172,7 +172,7 @@ const Footer = () => {
 
           <div>
             <p class="text-center text-gray-500 dark:text-gray-400">
-              © CodeVerse 2024- All rights reserved
+              © CodeVerse 2025- All rights reserved
             </p>
           </div>
         </div>
